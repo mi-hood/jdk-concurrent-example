@@ -7,5 +7,5 @@ package sync_control;
  */
 
 public class LockSupportDemo {
-    
+
 }
