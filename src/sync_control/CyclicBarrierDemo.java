@@ -86,7 +86,7 @@ public class CyclicBarrierDemo {
             es.submit(new Chef(cyclicBarrier,String.valueOf( (char) (i+'A'))));
         }
         es.shutdown();
-        es.awaitTermination(100,TimeUnit.SECONDS);
+        while(!es.isTerminated());
         System.out.println("just eat!");
     }
 

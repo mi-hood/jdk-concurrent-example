@@ -31,6 +31,8 @@ public class SemaphoreDemo extends Thread{
         for(int i=0;i<50;i++){
             executorService.submit(new SemaphoreDemo());
         }
+        executorService.shutdown();
+
     }
 }
 
