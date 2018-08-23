@@ -72,7 +72,7 @@ public class ReteenLockDemo {
 
 
     public static void main(String[] args) {
-        int me = 2;
+        int me = 1;
         //reentanlock
         if (me == 1)
             try {
