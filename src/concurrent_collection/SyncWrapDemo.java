@@ -8,19 +8,15 @@ package concurrent_collection;
 
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
-public class SyncWay implements Runnable {
+public class SyncWrapDemo implements Runnable {
     static List<Integer> list;
     static Map<String, Object> map;
     static int STEP = 2;
     static int type = 1;
     int start;
 
-    public SyncWay(int start) {
+    public SyncWrapDemo(int start) {
         this.start = start;
     }
 
@@ -43,7 +39,7 @@ public class SyncWay implements Runnable {
 //        list = Collections.synchronizedList(list);
 //        map = Collections.synchronizedMap(map);
         for (int i = 1; i <= STEP; i++) {
-            Thread t = new Thread(new SyncWay(i));
+            Thread t = new Thread(new SyncWrapDemo(i));
             t.start();
         }
         while (Thread.activeCount() > 2) ;

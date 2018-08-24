@@ -47,7 +47,7 @@ public class ConcurrentSkipListMapDemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //1 :syncHashMap            20:27 49 / 10:14 16 / 5:9 4 / 4:9 3 / 1:2 2
         //2 :concurrentSkipListMap  20:46 90 / 10:14 9 / 5:5 3  / 4:4 2 / 1:0 1
         //3:concurrentHashMap       20:46 93 / 10:16 1 / 5:5 1  / 4:6 0 / 1:1 0
@@ -93,7 +93,7 @@ public class ConcurrentSkipListMapDemo {
             }
         }
         executorService.shutdown();
-        while(!executorService.isTerminated());
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
         end=System.currentTimeMillis();
         System.out.println("search consume "+(end-start)/1000+"s");
     }

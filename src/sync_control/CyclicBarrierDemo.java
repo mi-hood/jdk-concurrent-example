@@ -22,17 +22,17 @@ public class CyclicBarrierDemo {
         @Override
         public void run() {
             try {
-                Thread.sleep(new Random().nextInt(10)*1000);
-                System.out.println("Chef"+chefName+":stuff prepared");
+                Thread.sleep(new Random().nextInt(10) * 1000);
+                System.out.println("Chef" + chefName + ":stuff prepared");
                 cyclicBarrier.await();
 
 
-                Thread.sleep(new Random().nextInt(10)*1000);
-                System.out.println("Chef"+chefName+":food cooked");
+                Thread.sleep(new Random().nextInt(10) * 1000);
+                System.out.println("Chef" + chefName + ":food cooked");
                 cyclicBarrier.await();
 
-                Thread.sleep(new Random().nextInt(10)*1000);
-                System.out.println("Chef"+chefName+":meal decorating");
+                Thread.sleep(new Random().nextInt(10) * 1000);
+                System.out.println("Chef" + chefName + ":meal decorating");
                 cyclicBarrier.await();
 
             } catch (InterruptedException e) {
@@ -61,7 +61,7 @@ public class CyclicBarrierDemo {
                     Thread.sleep(new Random().nextInt(10) * 1000);
                     System.out.println("Head Chef:food cooked.");
                     todo++;
-                }else  if(todo==3){
+                } else if (todo == 3) {
                     Thread.sleep(new Random().nextInt(10) * 1000);
                     System.out.println("Head Chef:meal decorated.");
                     todo++;
@@ -71,22 +71,24 @@ public class CyclicBarrierDemo {
             }
         }
     }
-    public static class MyExecutorService  {
+
+    public static class MyExecutorService {
         public static ExecutorService myThreadPool(int nThreads) {
-            return new ThreadPoolExecutor(nThreads, nThreads+5,
+            return new ThreadPoolExecutor(nThreads, nThreads + 5,
                     20L, TimeUnit.SECONDS,
-                    new ArrayBlockingQueue<>(10),Executors.defaultThreadFactory());
+                    new ArrayBlockingQueue<>(10), Executors.defaultThreadFactory());
         }
     }
+
     public static void main(String[] args) throws InterruptedException {
-        final int Chef_NUM=10;
-        ExecutorService es=MyExecutorService.myThreadPool(Chef_NUM);
-        CyclicBarrier cyclicBarrier=new CyclicBarrier(Chef_NUM,new BarrierWork(1));
-        for(int i=0;i<Chef_NUM;i++){
-            es.submit(new Chef(cyclicBarrier,String.valueOf( (char) (i+'A'))));
+        final int Chef_NUM = 10;
+        ExecutorService es = MyExecutorService.myThreadPool(Chef_NUM);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(Chef_NUM, new BarrierWork(1));
+        for (int i = 0; i < Chef_NUM; i++) {
+            es.submit(new Chef(cyclicBarrier, String.valueOf((char) (i + 'A'))));
         }
         es.shutdown();
-        while(!es.isTerminated());
+        es.awaitTermination(1, TimeUnit.MINUTES);
         System.out.println("just eat!");
     }
 
